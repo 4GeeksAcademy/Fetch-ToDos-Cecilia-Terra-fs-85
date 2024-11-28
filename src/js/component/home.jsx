@@ -1,24 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
 
-//create your first component
+
 const Home = () => {
+	const [tarea, setTarea] = useState("");
+	const [listaTarea, setListatarea] = useState([]);
+
+	function agregarTarea(e) {
+		// let arraynuevo = listaTarea.concat(tarea)
+		// setListatarea(arraynuevo)
+		if (e.key == "Enter") {
+			let arraynuevo = listaTarea.concat(tarea)
+			setListatarea(arraynuevo)
+			setTarea('')
+			return
+		}
+
+	}
+
 	return (
 		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+			<h1>ToDos</h1>
+
+			<input type="text" onChange={(e) => setTarea(e.target.value)} value={tarea}
+				onKeyDown={agregarTarea} />
+
+			<ul>
+				{listaTarea.map((tareas, index) => (
+					<li key={index}>{tareas}
+					</li>
+
+				))}
+			</ul>
 		</div>
 	);
 };
